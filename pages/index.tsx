@@ -13,66 +13,76 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <header className="text-center bg-[url('/header-mobile.png')] bg-cover h-screen">
-        <NavBar />
-        <div className="p-24">
-          <h1 className="font-[700] text-4xl text-[#252A2E] text-center">
-            Изготовление мебели{" "}
-          </h1>
-          <p className="font-[300] text-xl text-center">
-            По индвидуальному заказу
-          </p>
+      <header className="lg:flex">
+        <div className=" p-6 text-center bg-[url('/header-mobile.png')] bg-cover h-screen lg:bg-none lg:bg-[#A5B697] lg:w-[60%] lg:max-w-[600px]">
+          <NavBar />
+          <div className="py-24">
+            <img className="hidden lg:inline" src="/logo-big.png" alt="" />
+            <h1 className="font-[700] text-4xl text-[#252A2E] text-center lg:text-[#fff]">
+              Изготовление мебели{" "}
+            </h1>
+            <p className="font-[300] text-xl text-center lg:text-[#fff]">
+              По индвидуальному заказу
+            </p>
+          </div>
+          <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+            Перейти в каталог
+          </a>
         </div>
-        <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
-          Перейти в каталог
-        </a>
+        <div className="hidden lg:block bg-[url('/header-pic.png')] bg-cover h-screen w-full relative">
+          <div className="max-w-[300px] bg-[#EFF0EB] p-4 shadow absolute bottom-[30%] right-[20%]">
+            <h3 className="text-[#252A2E] font-[700] text-xl text-center uppercase p-4">
+              Мы небольшая группа людей с Нальчика, любящих свою работу
+            </h3>
+          </div>
+        </div>
       </header>
       <section>
-        <h2 className="text-[#252A2E] font-[700] text-3xl text-center p-8">
+        <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
           Что мы можем
         </h2>
-        <div>
-          <div className="flex justify-between p-10 mx-auto">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-1.svg" type=""></object>
-            <div className="font-[700] text-xl">Шкафы купе</div>
+            <div className="font-[700] text-xl lg:ml-6">Шкафы купе</div>
           </div>
-          <div className="flex justify-between p-10 mx-auto">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-2.svg" type=""></object>
-            <div className="font-[700] text-xl">Кухонная мебель</div>
+            <div className="font-[700] text-xl lg:ml-6">Кухонная мебель</div>
           </div>
-          <div className="flex justify-between p-10 mx-auto">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-3.svg" type=""></object>
-            <div className="font-[700] text-xl">Шкафы для прихожей</div>
+            <div className="font-[700] text-xl lg:ml-6">Шкафы для прихожей</div>
           </div>
-          <div className="flex justify-between p-10 mx-auto">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-4.svg" type=""></object>
-            <div className="font-[700] text-xl">Мебель для офиса</div>
+            <div className="font-[700] text-xl lg:ml-6">Мебель для офиса</div>
           </div>
-          <div className="flex justify-between p-10 mx-auto">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-5.svg" type=""></object>
-            <div className="font-[700] text-xl">Гардеробные</div>
+            <div className="font-[700] text-xl lg:ml-6">Гардеробные</div>
           </div>
-          <div className="flex justify-between p-10 mx-auto">
+          <div className="flex justify-around py-10 mx-auto">
             <object data="/work-6.svg" type=""></object>
-            <div className="font-[700] text-xl">Мебель для детской</div>
+            <div className="font-[700] text-xl lg:ml-6">Мебель для детской</div>
           </div>
         </div>
       </section>
-      <section className="bg-[url('/about-section-bg.png')] bg-cover h-screen relative">
-        <h2 className="text-[#252A2E] font-[700] text-3xl text-center p-8">
+      <section className="bg-[url('/about-section-bg.png')] lg:bg-[url('/about-bg-desk.png')] bg-cover h-screen relative">
+        <h2 className="text-[#252A2E] font-[700] text-3xl lg:text-5xl text-center lg:text-left lg:ml-48 p-8">
           О нас
         </h2>
-        <div className="max-w-[65%] bg-[#EFF0EB] p-4 shadow">
-          <h3 className="text-[#252A2E] font-[700] text-3xl text-center p-4">
+        <div className="max-w-[65%] bg-[#EFF0EB] p-4 shadow lg:max-w-[500px] lg:absolute right-[10%] bottom-[30%]">
+          <h3 className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
             С 2010 года
           </h3>
-          <p className="font-[300] text-xl text-center">
+          <p className="font-[300] text-xl lg:text-3xl text-center">
             производим кухни по индивидуальному дизайну и пожеланиям заказчиков.
           </p>
-          <h3 className="text-[#252A2E] font-[700] text-3xl text-center p-4">
+          <h3 className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
             Более 1000
           </h3>
-          <p className="font-[300] text-xl text-center">
+          <p className="font-[300] text-xl lg:text-3xl text-center">
             реализованных проектов
           </p>
         </div>
@@ -83,18 +93,18 @@ const Home: NextPage = () => {
           Товары по акции
         </h2>
       </section>
-      <section>
-        <div className="flex justify-center">
-          <object className="w-[50px]" data="/call.svg" type=""></object>
-          <div>
-            <p className="text-[#252A2E] font-[700] text-3xl p-8">Звоните</p>
+      <section className="lg:flex justify-around">
+        <div className="flex mb-12">
+          <object className="w-[50px] mr-6" data="/call.svg" type=""></object>
+          <div className="flex flex-col">
+            <p className="text-[#252A2E] font-[700] text-3xl pb-6">Звоните</p>
             <p className="font-[300] text-3xl">+ 7 (988) 936 60 54</p>
           </div>
         </div>
-        <div className="flex justify-center">
-          <object className="w-[50px]" data="/write.svg" type=""></object>
-          <div>
-            <p className="text-[#252A2E] font-[700] text-3xl p-8">Пишите</p>
+        <div className="flex">
+          <object className="w-[50px] mr-6" data="/write.svg" type=""></object>
+          <div className="flex flex-col">
+            <p className="text-[#252A2E] font-[700] text-3xl pb-6">Пишите</p>
             <p className="font-[300] text-3xl">kitchen_masters07@mail.ru</p>
           </div>
         </div>
