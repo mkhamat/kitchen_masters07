@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import SimpleSlider from "../components/Carousel";
 import NavBar from "../components/Navbar";
 
 const Home: NextPage = () => {
@@ -38,6 +39,7 @@ const Home: NextPage = () => {
         </div>
       </header>
       <section>
+        <SimpleSlider />
         <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
           Что мы можем
         </h2>
@@ -109,6 +111,39 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
+      <footer className="flex flex-col justify-center items-center">
+        <img src="/logo-big.png" alt="" />
+        <img src="/name-big.png" alt="" />
+        <nav>
+          <ul className="flex my-6">
+            <li className="text-[#222] text-sm font-[500] uppercase mr-5">
+              <a
+                href="/"
+              >
+                Главная
+              </a>
+            </li>
+            <li className="text-[#222]  text-sm font-[500] uppercase">
+              <a
+                href="/catalogue"
+              >
+                Каталог
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <p className="text-[#222]  text-sm font-[500] ">
+          + 7 (988) 936 60 54
+        </p>
+      <div className="flex my-6">
+        <a href="" className="mr-2">
+          <object data="/whatsapp.svg" type="image/svg+xml" />
+        </a>
+        <a href="">
+          <object data="/telegram.svg" type="image/svg+xml" />
+        </a>
+      </div>
+      </footer>
     </div>
   );
 };
