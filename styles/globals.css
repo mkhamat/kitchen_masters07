@@ -44,3 +44,7 @@ a {
     inset -5px 0px 4px rgba(239, 240, 235, 0.5),
     inset 4px 0px 4px rgba(0, 0, 0, 0.25);
 }
+
+.catalogue-shadow {
+  box-shadow: 15px 25px 22px rgba(0, 0, 0, 0.25);
+}
