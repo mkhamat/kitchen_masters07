@@ -39,7 +39,6 @@ const Home: NextPage = () => {
         </div>
       </header>
       <section>
-        <SimpleSlider />
         <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
           Что мы можем
         </h2>
@@ -89,11 +88,37 @@ const Home: NextPage = () => {
           </p>
         </div>
       </section>
-      <section>
-        //TODO
-        <h2 className="text-[#252A2E] font-[700] text-3xl text-center p-16">
-          Товары по акции
-        </h2>
+      <section className="flex items-stretch">
+        <div className="bg-[#EFF0EB] w-[100%]">
+          {/* <h2 className="text-[#252A2E] font-[700] text-3xl text-center p-16">
+            Товары по акции
+          </h2> */}
+
+          <div className="flex p-10">
+            <div className="flex flex-col justify-center items-start">
+              <p>Духовой шкаф Maunfeld AEOH.749B2</p>
+              <p>33999</p>
+              <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+                Заказать
+              </a>
+            </div>
+            <div>
+              <img src="/sale1.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="w-[100%] bg-[#7D8E66] flex p-10">
+          <div className="flex flex-col justify-center items-start">
+            <p>Духовой шкаф Maunfeld AEOH.749B2</p>
+            <p>33999</p>
+            <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+              Заказать
+            </a>
+          </div>
+          <div>
+            <img src="/sale2.png" alt="" />
+          </div>
+        </div>
       </section>
       <section className="lg:flex justify-around">
         <div className="flex mb-12">
@@ -111,38 +136,34 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
+      <section>
+        <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
+          Готовые работы
+        </h2>
+        <SimpleSlider />
+      </section>
       <footer className="flex flex-col justify-center items-center">
         <img src="/logo-big.png" alt="" />
         <img src="/name-big.png" alt="" />
         <nav>
           <ul className="flex my-6">
             <li className="text-[#222] text-sm font-[500] uppercase mr-5">
-              <a
-                href="/"
-              >
-                Главная
-              </a>
+              <a href="/">Главная</a>
             </li>
             <li className="text-[#222]  text-sm font-[500] uppercase">
-              <a
-                href="/catalogue"
-              >
-                Каталог
-              </a>
+              <a href="/catalogue">Каталог</a>
             </li>
           </ul>
         </nav>
-        <p className="text-[#222]  text-sm font-[500] ">
-          + 7 (988) 936 60 54
-        </p>
-      <div className="flex my-6">
-        <a href="" className="mr-2">
-          <object data="/whatsapp.svg" type="image/svg+xml" />
-        </a>
-        <a href="">
-          <object data="/telegram.svg" type="image/svg+xml" />
-        </a>
-      </div>
+        <p className="text-[#222]  text-sm font-[500] ">+ 7 (988) 936 60 54</p>
+        <div className="flex my-6">
+          <a href="" className="mr-2">
+            <object data="/whatsapp.svg" type="image/svg+xml" />
+          </a>
+          <a href="">
+            <object data="/telegram.svg" type="image/svg+xml" />
+          </a>
+        </div>
       </footer>
     </div>
   );
