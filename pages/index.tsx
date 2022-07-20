@@ -97,9 +97,9 @@ const Home: NextPage = () => {
             Товары по акции
           </h2> */}
 
-          <div className="flex p-10">
-            <div className="flex flex-col justify-center items-start">
-              <p className="text-[#7D8E66] font-extralight text-4xl">
+          <div className="flex flex-col-reverse lg:flex-row p-10">
+            <div className="flex flex-col justify-center items-center lg:items-start">
+              <p className="text-[#7D8E66] font-extralight text-4xl text-center lg:text-left">
                 Духовой шкаф Maunfeld AEOH.749B2
               </p>
               <p className="text-[#7D8E66] font-bold text-4xl py-10">
@@ -114,9 +114,9 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-[100%] bg-[#7D8E66] flex p-10">
-          <div className="flex flex-col justify-center items-start">
-            <p className="text-white font-extralight text-4xl">
+        <div className="w-[100%] bg-[#7D8E66] flex flex-col-reverse lg:flex-row p-10">
+          <div className="flex flex-col justify-center items-center lg:items-start">
+            <p className="text-white font-extralight text-4xl text-center lg:text-left">
               Духовой шкаф Maunfeld AEOH.749B2
             </p>
             <p className="text-white font-bold text-4xl py-10">33999 ₽</p>
@@ -141,7 +141,7 @@ const Home: NextPage = () => {
           <object className="w-[50px] mr-6" data="/write.svg" type=""></object>
           <div className="flex flex-col">
             <p className="text-[#252A2E] font-[700] text-3xl pb-6">Пишите</p>
-            <p className="font-[300] text-3xl">kitchen_masters07@mail.ru</p>
+            <p className="font-[300] text-2xl">kitchen_masters07@mail.ru</p>
           </div>
         </div>
       </section>

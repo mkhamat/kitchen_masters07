@@ -74,12 +74,12 @@ export default function CataloguePage() {
         </div>
         <Pagination count={10} page={1} />
       </section>
-      <section className="bg-[#c1b8b2] flex items-center justify-center my-14 p-6">
+      <section className="bg-[#c1b8b2] flex flex-col-reverse lg:flex-row items-center justify-center my-14 p-6">
         <div className="p-10">
           <img src="/sale2.png" alt="" />
         </div>
         <div>
-          <p className="text-black font-extralight text-4xl">
+          <p className="text-black font-extralight text-4xl text-center lg:text-left">
             Духовой шкаф Maunfeld AEOH.749B2
           </p>
           <p className="text-black font-bold text-4xl py-10">33999 ₽</p>
