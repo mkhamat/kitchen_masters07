@@ -28,7 +28,7 @@ export default function CataloguePage() {
         </div>
       </section>
       <section>
-        <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10">
+        <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 max-w-[1400px] m-auto">
           <CatalogueItem
             title='Шкаф купе "Дизель"'
             description="Изготовление до 7 дней"
@@ -74,6 +74,43 @@ export default function CataloguePage() {
         </div>
         <Pagination count={10} page={1} />
       </section>
+      <section className="bg-[#c1b8b2] flex items-center justify-center my-14 p-6">
+        <div className="p-10">
+          <img src="/sale2.png" alt="" />
+        </div>
+        <div>
+          <p className="text-black font-extralight text-4xl">
+            Духовой шкаф Maunfeld AEOH.749B2
+          </p>
+          <p className="text-black font-bold text-4xl py-10">33999 ₽</p>
+          <a className="bg-[#66A018] text-white font-[500] py-3 px-10">
+            Заказать
+          </a>
+        </div>
+      </section>
+      <footer className="flex flex-col justify-center items-center">
+        <img src="/logo-big.png" alt="" />
+        <img src="/name-big.png" alt="" />
+        <nav>
+          <ul className="flex my-6">
+            <li className="text-[#222] text-sm font-[500] uppercase mr-5">
+              <a href="/">Главная</a>
+            </li>
+            <li className="text-[#222]  text-sm font-[500] uppercase">
+              <a href="/catalogue">Каталог</a>
+            </li>
+          </ul>
+        </nav>
+        <p className="text-[#222]  text-sm font-[500] ">+ 7 (988) 936 60 54</p>
+        <div className="flex my-6">
+          <a href="" className="mr-2">
+            <object data="/whatsapp.svg" type="image/svg+xml" />
+          </a>
+          <a href="">
+            <object data="/telegram.svg" type="image/svg+xml" />
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
@@ -89,11 +126,13 @@ function FilterItem({
 }) {
   return (
     <div
-      className={`border-[#8E8178] p-2 border-[1px] flex justify-between lg:justify-around items-center font-[500] hover:bg-slate-200 ${
-        selected && "bg-[#A5B697] text-[#fff] border-[#A5B697]"
+      className={`border-[#8E8178] p-2 border-[1px] flex justify-between lg:justify-around items-center font-[500] hover:bg-slate-200 min-h-[80px] ${
+        selected && "bg-[#A5B697] border-[#A5B697]"
       } `}
     >
-      {title}
+      <span className={selected ? "text-[#fff]" : "text-[#8E8178]"}>
+        {title}
+      </span>
       <object data={icon} type=""></object>
     </div>
   );
@@ -126,7 +165,7 @@ function CatalogueItem({
 function Pagination({ count, page }: { count: number; page: number }) {
   return (
     <div>
-      <ul>
+      <ul className="m-auto text-center">
         <span className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66]">
           {"<"}
         </span>

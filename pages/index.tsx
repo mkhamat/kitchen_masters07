@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import SimpleSlider from "../components/Carousel";
 import NavBar from "../components/Navbar";
 
@@ -26,9 +27,11 @@ const Home: NextPage = () => {
               По индвидуальному заказу
             </p>
           </div>
-          <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+          <Link href="/catalogue">
+            <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
             Перейти в каталог
-          </a>
+            </a>
+          </Link>
         </div>
         <div className="hidden lg:block bg-[url('/header-pic.png')] bg-cover h-screen w-full relative">
           <div className="max-w-[300px] bg-[#EFF0EB] p-4 shadow absolute bottom-[30%] right-[20%]">
@@ -42,30 +45,30 @@ const Home: NextPage = () => {
         <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
           Что мы можем
         </h2>
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-3">
-          <div className="flex justify-around py-10 mx-auto">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-3 p-10">
+          <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-1.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Шкафы купе</div>
+            <div className="font-[700] text-xl text-center ml-16">Шкафы купе</div>
           </div>
-          <div className="flex justify-around py-10 mx-auto">
+          <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-2.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Кухонная мебель</div>
+            <div className="font-[700] text-xl text-right md:text-center ml-4">Кухонная мебель</div>
           </div>
-          <div className="flex justify-around py-10 mx-auto">
+          <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-3.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Шкафы для прихожей</div>
+            <div className="font-[700] text-xl text-right md:text-center ml-4">Шкафы для прихожей</div>
           </div>
-          <div className="flex justify-around py-10 mx-auto">
+          <div className="flex justify-between py-10 mx-auto items-center ">
             <object data="/work-4.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Мебель для офиса</div>
+            <div className="font-[700] text-xl text-center ml-4">Мебель для офиса</div>
           </div>
-          <div className="flex justify-around py-10 mx-auto">
+          <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-5.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Гардеробные</div>
+            <div className="font-[700] text-xl text-center ml-4">Гардеробные</div>
           </div>
-          <div className="flex justify-around py-10 mx-auto">
+          <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-6.svg" type=""></object>
-            <div className="font-[700] text-xl lg:ml-6">Мебель для детской</div>
+            <div className="font-[700] text-xl text-center ml-4">Мебель для детской</div>
           </div>
         </div>
       </section>
@@ -88,7 +91,7 @@ const Home: NextPage = () => {
           </p>
         </div>
       </section>
-      <section className="flex items-stretch">
+      <section className="flex flex-col lg:flex-row items-stretch">
         <div className="bg-[#EFF0EB] w-[100%]">
           {/* <h2 className="text-[#252A2E] font-[700] text-3xl text-center p-16">
             Товары по акции
@@ -96,8 +99,12 @@ const Home: NextPage = () => {
 
           <div className="flex p-10">
             <div className="flex flex-col justify-center items-start">
-              <p>Духовой шкаф Maunfeld AEOH.749B2</p>
-              <p>33999</p>
+              <p className="text-[#7D8E66] font-extralight text-4xl">
+                Духовой шкаф Maunfeld AEOH.749B2
+              </p>
+              <p className="text-[#7D8E66] font-bold text-4xl py-10">
+                33999 ₽
+              </p>
               <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
                 Заказать
               </a>
@@ -109,9 +116,11 @@ const Home: NextPage = () => {
         </div>
         <div className="w-[100%] bg-[#7D8E66] flex p-10">
           <div className="flex flex-col justify-center items-start">
-            <p>Духовой шкаф Maunfeld AEOH.749B2</p>
-            <p>33999</p>
-            <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+            <p className="text-white font-extralight text-4xl">
+              Духовой шкаф Maunfeld AEOH.749B2
+            </p>
+            <p className="text-white font-bold text-4xl py-10">33999 ₽</p>
+            <a className="bg-white text-[#66A018] font-[500] py-3 px-10">
               Заказать
             </a>
           </div>
@@ -120,7 +129,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
-      <section className="lg:flex justify-around">
+      <section className="lg:flex justify-around mt-14">
         <div className="flex mb-12">
           <object className="w-[50px] mr-6" data="/call.svg" type=""></object>
           <div className="flex flex-col">
