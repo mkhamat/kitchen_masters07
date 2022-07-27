@@ -12,11 +12,11 @@ export default function CataloguePage() {
   ];
   const [selected, setSelected] = useState(0);
   const [items, setItems] = useState([]);
-  const [sale, setSale] = useState<any>();
+  const [sale, setSale] = useState();
 
-  const fetchItems = async (type: number) => {
-    const sale: any = await directus.items("sale3").readByQuery();
-    const res: any = await directus.items("catalogue").readByQuery({
+  const fetchItems = async (type) => {
+    const sale = await directus.items("sale3").readByQuery();
+    const res = await directus.items("catalogue").readByQuery({
       filter: {
         _and: [{ type: { _eq: type } }],
       },
@@ -63,7 +63,7 @@ export default function CataloguePage() {
       <section>
         <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 max-w-[1400px] m-auto">
           {items.length &&
-            items.map((item: any) => (
+            items.map((item) => (
               <CatalogueItem
                 title={item.title}
                 description={item.description}
@@ -130,11 +130,6 @@ function FilterItem({
   icon,
   title,
   set,
-}: {
-  selected?: boolean;
-  icon: string;
-  title: string;
-  set: any;
 }) {
   return (
     <div
@@ -157,11 +152,6 @@ function CatalogueItem({
   description,
   price,
   img,
-}: {
-  title: string;
-  description: string;
-  price: string;
-  img: string;
 }) {
   return (
     <div className="catalogue-shadow flex flex-col items-start w-[350px]">
@@ -184,7 +174,7 @@ function CatalogueItem({
   );
 }
 
-function Pagination({ count, page }: { count: number; page: number }) {
+function Pagination({ count, page }) {
   return (
     <div>
       <ul className="m-auto text-center">

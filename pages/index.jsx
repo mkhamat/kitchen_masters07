@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -6,12 +5,12 @@ import SimpleSlider from "../components/Carousel";
 import NavBar from "../components/Navbar";
 import directus from "./api/directus";
 
-const Home: NextPage = () => {
+const Home = () => {
   const [sale, setSale] = useState<any>([]);
 
   const fetch = async () => {
-    const res1: any = await directus.items("sale1").readByQuery();
-    const res2: any = await directus.items("sale2").readByQuery();
+    const res1 = await directus.items("sale1").readByQuery();
+    const res2 = await directus.items("sale2").readByQuery();
     setSale([res1.data, res2.data]);
   };
 

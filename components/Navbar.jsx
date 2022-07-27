@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function NavBar({ white }: { white?: boolean }) {
+export default function NavBar({ white }) {
   return (
     <div className="flex justify-between items-center max-w-[375px] m-auto lg:max-w-[600px] lg:m-0">
       {white ? (
