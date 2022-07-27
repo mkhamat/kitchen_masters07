@@ -1,7 +1,34 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import NavBar from "../components/Navbar";
+import directus from "./api/directus";
 
 export default function CataloguePage() {
+  const menuItems = [
+    { title: "Кухни", icon: "/work-2.svg" },
+    { title: "Шкафы", icon: "/work-1.svg" },
+    { title: "Фурнитура", icon: "/work-6.svg" },
+    { title: "Техника", icon: "/work-4.svg" },
+  ];
+  const [selected, setSelected] = useState(0);
+  const [items, setItems] = useState([]);
+  const [sale, setSale] = useState<any>();
+
+  const fetchItems = async (type: number) => {
+    const sale: any = await directus.items("sale3").readByQuery();
+    const res: any = await directus.items("catalogue").readByQuery({
+      filter: {
+        _and: [{ type: { _eq: type } }],
+      },
+    });
+    setItems(res.data);
+    setSale(sale.data);
+  };
+
+  useEffect(() => {
+    fetchItems(selected);
+  }, [selected]);
+
   return (
     <>
       <Head>
@@ -20,73 +47,56 @@ export default function CataloguePage() {
         </div>
       </header>
       <section>
-        <div className="grid grid-cols-1 max-w-[300px] lg:grid-cols-4 lg:max-w-[900px] m-auto p-8">
-          <FilterItem title="Кухни" icon={"/work-2.svg"} selected />
-          <FilterItem title="Шкафы" icon={"/work-1.svg"} />
-          <FilterItem title="Фурнитура" icon={"/work-6.svg"} />
-          <FilterItem title="Техника" icon={"/work-4.svg"} />
+        <div className="grid grid-cols-1 md:grid-cols-2 md:max-w-[500px] max-w-[300px] lg:grid-cols-4 lg:max-w-[900px] m-auto p-8">
+          {menuItems.map((item, i) => {
+            return (
+              <FilterItem
+                title={item.title}
+                icon={item.icon}
+                selected={i == selected}
+                set={() => setSelected(i)}
+              />
+            );
+          })}
         </div>
       </section>
       <section>
         <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 max-w-[1400px] m-auto">
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
-          <CatalogueItem
-            title='Шкаф купе "Дизель"'
-            description="Изготовление до 7 дней"
-            price="12500"
-            img="/image 2.png"
-          />
+          {items.length &&
+            items.map((item: any) => (
+              <CatalogueItem
+                title={item.title}
+                description={item.description}
+                img={item.image}
+                price={item.price}
+              />
+            ))}
         </div>
         <Pagination count={10} page={1} />
       </section>
       <section className="bg-[#c1b8b2] flex flex-col-reverse lg:flex-row items-center justify-center my-14 p-6">
-        <div className="p-10">
-          <img src="/sale2.png" alt="" />
-        </div>
-        <div>
-          <p className="text-black font-extralight text-4xl text-center lg:text-left">
-            Духовой шкаф Maunfeld AEOH.749B2
-          </p>
-          <p className="text-black font-bold text-4xl py-10">33999 ₽</p>
-          <a className="bg-[#66A018] text-white font-[500] py-3 px-10">
-            Заказать
-          </a>
-        </div>
+        {sale && (
+          <>
+            <div className="p-10">
+              <img
+                className="w-[500px] h-[400px] object-cover"
+                src={`/assets/${sale.image}`}
+                alt=""
+              />
+            </div>
+            <div>
+              <p className="text-black font-extralight text-4xl text-center lg:text-left">
+                {sale.title}
+              </p>
+              <p className="text-black font-bold text-4xl py-10">
+                {sale.price} ₽
+              </p>
+              <a className="bg-[#66A018] text-white font-[500] py-3 px-10">
+                Заказать
+              </a>
+            </div>
+          </>
+        )}
       </section>
       <footer className="flex flex-col justify-center items-center">
         <img src="/logo-big.png" alt="" />
@@ -119,16 +129,20 @@ function FilterItem({
   selected,
   icon,
   title,
+  set,
 }: {
   selected?: boolean;
   icon: string;
   title: string;
+  set: any;
 }) {
   return (
     <div
-      className={`border-[#8E8178] p-2 border-[1px] flex justify-between lg:justify-around items-center font-[500] hover:bg-slate-200 min-h-[80px] ${
-        selected && "bg-[#A5B697] border-[#A5B697]"
-      } `}
+      onClick={set}
+      className={`border-[#8E8178] p-2 border-[1px] flex justify-between lg:justify-around items-center font-[500]
+       hover:bg-slate-200 min-h-[80px] cursor-pointer ${
+         selected && "bg-[#A5B697] border-[#A5B697]"
+       } `}
     >
       <span className={selected ? "text-[#fff]" : "text-[#8E8178]"}>
         {title}
@@ -150,11 +164,19 @@ function CatalogueItem({
   img: string;
 }) {
   return (
-    <div className="catalogue-shadow w-[390px] flex flex-col items-center">
-      <img src={img} alt="" />
-      <p className="text-[#252A2E] font-[700] text-2xl py-2">{title}</p>
-      <p className="text-[#252A2E] text-lg font-[300]">{description}</p>
-      <p className="text-[#252A2E] text-2xl py-2 font-[700]">От {price} руб.</p>
+    <div className="catalogue-shadow flex flex-col items-start w-[350px]">
+      <img
+        className="w-[350px] h-[300px] object-cover"
+        src={`/assets/${img}`}
+        alt=""
+      />
+      <div className="p-2">
+        <p className="text-[#252A2E] font-[700] text-2xl py-2">{title}</p>
+        <p className="text-[#252A2E] text-lg font-[300]">{description}</p>
+        <p className="text-[#252A2E] text-2xl py-2 font-[700]">
+          От {price} руб.
+        </p>
+      </div>
       <div className="bg-[#66A018] text-center text-[#fff] p-3 self-stretch">
         ОФОРМИТЬ ЗАКАЗ
       </div>
