@@ -6,7 +6,7 @@ import NavBar from "../components/Navbar";
 import directus from "./api/directus";
 
 const Home = () => {
-  const [sale, setSale] = useState<any>([]);
+  const [sale, setSale] = useState([]);
 
   const fetch = async () => {
     const res1 = await directus.items("sale1").readByQuery();
@@ -193,10 +193,10 @@ const Home = () => {
         <nav>
           <ul className="flex my-6">
             <li className="text-[#222] text-sm font-[500] uppercase mr-5">
-              <a href="/">Главная</a>
+              <Link href="/">Главная</Link>
             </li>
             <li className="text-[#222]  text-sm font-[500] uppercase">
-              <a href="/catalogue">Каталог</a>
+              <Link href="/catalogue">Каталог</Link>
             </li>
           </ul>
         </nav>

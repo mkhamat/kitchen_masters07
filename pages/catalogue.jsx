@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link.js";
 import { useEffect, useState } from "react";
 import NavBar from "../components/Navbar";
 import directus from "./api/directus";
@@ -51,6 +52,7 @@ export default function CataloguePage() {
           {menuItems.map((item, i) => {
             return (
               <FilterItem
+              key={item+i}
                 title={item.title}
                 icon={item.icon}
                 selected={i == selected}
@@ -65,6 +67,7 @@ export default function CataloguePage() {
           {items.length &&
             items.map((item) => (
               <CatalogueItem
+              key={item.title+1}
                 title={item.title}
                 description={item.description}
                 img={item.image}
@@ -104,10 +107,10 @@ export default function CataloguePage() {
         <nav>
           <ul className="flex my-6">
             <li className="text-[#222] text-sm font-[500] uppercase mr-5">
-              <a href="/">Главная</a>
+              <Link href="/">Главная</Link>
             </li>
             <li className="text-[#222]  text-sm font-[500] uppercase">
-              <a href="/catalogue">Каталог</a>
+              <Link href="/catalogue">Каталог</Link>
             </li>
           </ul>
         </nav>
