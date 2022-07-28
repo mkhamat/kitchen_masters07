@@ -4,8 +4,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
-        destination: "http://0.0.0.0:8055/:path*", // Proxy to Backend
+        source: "/api/:path*",
+        destination: "http://kitchen-masters07.com:8055/:path*", // Proxy to Backend
+      },
+      {
+        source: "/assets/:path*",
+        destination: "http://kitchen-masters07.com:8055/assets/:path*", // Proxy to Backend
       },
     ];
   },
