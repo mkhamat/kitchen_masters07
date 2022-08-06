@@ -1,12 +1,56 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ReactModal from "react-modal";
 import SimpleSlider from "../components/Carousel";
 import NavBar from "../components/Navbar";
 import directus from "./api/directus";
 
 const Home = () => {
   const [sale, setSale] = useState([]);
+  const [modalSwitch, setModalSwitch] = useState(false);
+  const [feedback, setFeedback] = useState({
+    name: null,
+    email: null,
+    number: null,
+    item: null,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let response = await fetch("http://localhost:3000/api/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: {
+        from: "Fred Foo <orders@kitchen-masters07.com>",
+        to: "info@kitchen-masters07.com",
+        subject: "Hello ✔",
+        text: "Hello world?",
+        html: "<b>Hello world?</b>",
+      },
+    });
+  };
+
+  const closeModal = () => {
+    setFeedback({
+      name: null,
+      email: null,
+      number: null,
+      item: null,
+    });
+    setModalSwitch(false);
+  };
+  const openModal = () => {
+    setModalSwitch(true);
+  };
+
+  const handleOrder = (itemName) => {
+    setFeedback({ ...feedback, item: itemName });
+    openModal();
+  };
 
   const fetch = async () => {
     const res1 = await directus.items("sale1").readByQuery();
@@ -48,7 +92,8 @@ const Home = () => {
         <div className="hidden lg:block bg-[url('/header-pic.png')] bg-cover h-screen w-full relative">
           <div className="max-w-[300px] bg-[#EFF0EB] p-4 shadow absolute bottom-[30%] right-[20%]">
             <h3 className="text-[#252A2E] font-[700] text-xl text-center uppercase p-4">
-              Мы небольшая группа людей с Нальчика, любящих свою работу
+              Kitchen Masters – небольшая группа профессионалов из Нальчика,
+              любящих свою работу
             </h3>
           </div>
         </div>
@@ -120,7 +165,7 @@ const Home = () => {
         </h2> */}
         {sale.length && (
           <>
-            <div className="bg-[#EFF0EB] w-[100%] px-10 py-16">
+            <div className="bg-[#EFF0EB] w-[100%] md:px-10 py-16">
               <div className="flex flex-col-reverse lg:flex-row">
                 <div className="flex flex-col justify-center items-center lg:items-start">
                   <p className="text-[#7D8E66] font-extralight text-4xl text-center lg:text-left">
@@ -129,20 +174,71 @@ const Home = () => {
                   <p className="text-[#7D8E66] font-bold text-4xl py-10">
                     {sale[0].price} ₽
                   </p>
-                  <a className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10">
+                  <ReactModal
+                    isOpen={modalSwitch}
+                    onRequestClose={closeModal}
+                    style={{
+                      overlay: {
+                        backgroundColor: "transparent",
+                        inset: 0,
+                      },
+                      content: {
+                        inset: 0,
+                        maxWidth: "min-content",
+                        height: "min-content",
+                        margin: "auto",
+                        border: "none",
+                        boxShadow: "0px 0px 10px gray",
+                      },
+                    }}
+                  >
+                    <div className="font-bold pb-4">{feedback.item}</div>
+                    <div className="text-black">
+                      Укажите Ваш номер телефона и мы Вам перезвоним для
+                      уточнения деталей:
+                    </div>
+                    <input
+                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
+                      type="text"
+                      placeholder="Номер телефона"
+                      onChange={(v) => setFeedback({ ...feedback, number: v })}
+                    />
+                    <input
+                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
+                      type="text"
+                      placeholder="Ваше имя"
+                      onChange={(v) => setFeedback({ ...feedback, name: v })}
+                    />
+                    <input
+                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
+                      type="text"
+                      placeholder="E-mail"
+                      onChange={(v) => setFeedback({ ...feedback, email: v })}
+                    />
+                    <button
+                      onClick={(e) => handleSubmit(e)}
+                      className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10 rounded-md"
+                    >
+                      Отправить
+                    </button>
+                  </ReactModal>
+                  <button
+                    onClick={() => handleOrder(sale[0].title)}
+                    className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10"
+                  >
                     Заказать
-                  </a>
+                  </button>
                 </div>
-                <div>
+                <div className="m-auto">
                   <img
-                    className="w-[500px] h-[400px] object-cover p-10"
+                    className="w-[500px] h-[400px] object-cover md:p-10"
                     src={`/assets/${sale[0].image}`}
                     alt=""
                   />
                 </div>
               </div>
             </div>
-            <div className="w-[100%] bg-[#7D8E66] flex flex-col-reverse lg:flex-row px-10 py-16">
+            <div className="w-[100%] bg-[#7D8E66] flex flex-col-reverse lg:flex-row md:px-10 py-16">
               <div className="flex flex-col justify-center items-center lg:items-start">
                 <p className="text-white font-extralight text-4xl text-center lg:text-left">
                   {sale[1].title}
@@ -154,9 +250,9 @@ const Home = () => {
                   Заказать
                 </a>
               </div>
-              <div>
+              <div className="m-auto">
                 <img
-                  className="w-[500px] h-[400px] object-cover p-10"
+                  className="w-[500px] h-[400px] object-cover md:p-10"
                   src={`/assets/${sale[1].image}`}
                   alt=""
                 />
@@ -177,7 +273,7 @@ const Home = () => {
           <object className="w-[50px] mr-6" data="/write.svg" type=""></object>
           <div className="flex flex-col">
             <p className="text-[#252A2E] font-[700] text-3xl pb-6">Пишите</p>
-            <p className="font-[300] text-2xl">kitchen_masters07@mail.ru</p>
+            <p className="font-[300] text-2xl">info@kitchen-masters07.com</p>
           </div>
         </div>
       </section>
@@ -185,6 +281,7 @@ const Home = () => {
         <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
           Готовые работы
         </h2>
+
         <SimpleSlider />
       </section>
       <footer className="flex flex-col justify-center items-center">
@@ -202,10 +299,14 @@ const Home = () => {
         </nav>
         <p className="text-[#222]  text-sm font-[500] ">+ 7 (988) 936 60 54</p>
         <div className="flex my-6">
-          <a href="" className="mr-2">
+          <a
+            href="https://wa.me/79889366054"
+            target={"_blank"}
+            className="mr-2"
+          >
             <object data="/whatsapp.svg" type="image/svg+xml" />
           </a>
-          <a href="">
+          <a href="https://t.me/Kitchenmasters07" target={"_blank"}>
             <object data="/telegram.svg" type="image/svg+xml" />
           </a>
         </div>

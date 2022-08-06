@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
+        source: "/directus/:path*",
         destination: "http://kitchen-masters07.com:8055/:path*", // Proxy to Backend
       },
       {

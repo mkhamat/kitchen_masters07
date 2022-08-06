@@ -1,5 +1,5 @@
 import { Directus } from "@directus/sdk";
 
-const directus = new Directus('http://0.0.0.0:3000/api',);
+const directus = new Directus('http://localhost:3000/directus',);
 
 export default directus;

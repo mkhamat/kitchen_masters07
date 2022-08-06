@@ -40,29 +40,31 @@ export default function NavBar({ white }) {
       </nav>
 
       {white ? (
-          <div className="flex">
-            <a href="" className="mx-2">
-              <object data="/whatsapp-white.svg" type="image/svg+xml" />
-            </a>
-            <a href="">
-              <object data="/telegram-white.svg" type="image/svg+xml" />
-            </a>
-          </div>
+        <div className="flex">
+          <a href="https://wa.me/79889366054" target={'_blank'} className="mx-2">
+            <object data="/whatsapp-white.svg" type="image/svg+xml"/>
+          </a>
+          <a href="https://t.me/Kitchenmasters07" target={'_blank'}>
+            <object data="/telegram-white.svg" type="image/svg+xml" />
+          </a>
+        </div>
       ) : (
         <>
           <div className="flex lg:hidden">
-            <a href="" className="mr-2">
+            <a href="https://wa.me/79889366054" target={'_blank'} className="mr-2">
               <object data="/whatsapp.svg" type="image/svg+xml" />
             </a>
-            <a href="">
-              <object data="/telegram.svg" type="image/svg+xml" />
+            <a href="https://t.me/Kitchenmasters07" target={'_blank'}>
+              <span>
+                <object data="/telegram.svg" type="image/svg+xml" />
+              </span>
             </a>
           </div>
           <div className="hidden lg:flex">
-            <a href="" className="mr-2">
+            <a href="https://wa.me/79889366054" target={'_blank'} className="mr-2">
               <object data="/whatsapp-white.svg" type="image/svg+xml" />
             </a>
-            <a href="">
+            <a href="https://t.me/Kitchenmasters07" target={'_blank'}>
               <object data="/telegram-white.svg" type="image/svg+xml" />
             </a>
           </div>{" "}

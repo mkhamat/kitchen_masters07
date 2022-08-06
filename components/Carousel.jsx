@@ -5,24 +5,24 @@ import Slider from "react-slick";
 
 export default class SimpleSlider extends Component {
   render() {
-    const settings = {
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-    };
     return (
-      <div className="py-10">
+      <div className="py-0">
         <Slider
-          {...settings}
-          arrows
+          infinite={true}
+          speed={500}
+          slidesToShow={4}
+          slidesToScroll={1}
           autoplay
           centerMode
+          arrows={false}
           focusOnSelect
           responsive={[
             { breakpoint: 1190, settings: { slidesToShow: 3 } },
             { breakpoint: 800, settings: { slidesToShow: 2 } },
-            { breakpoint: 500, settings: { slidesToShow: 1 } },
+            {
+              breakpoint: 500,
+              settings: { slidesToShow: 1, centerMode: true },
+            },
           ]}
         >
           <img src="/carousel1.png" alt="" />

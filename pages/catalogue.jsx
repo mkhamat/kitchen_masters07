@@ -14,10 +14,13 @@ export default function CataloguePage() {
   const [selected, setSelected] = useState(0);
   const [items, setItems] = useState([]);
   const [sale, setSale] = useState();
+  const [page, setPage] = useState(1);
 
   const fetchItems = async (type) => {
     const sale = await directus.items("sale3").readByQuery();
     const res = await directus.items("catalogue").readByQuery({
+      limit: 2,
+      page: page,
       filter: {
         _and: [{ type: { _eq: type } }],
       },
@@ -28,7 +31,7 @@ export default function CataloguePage() {
 
   useEffect(() => {
     fetchItems(selected);
-  }, [selected]);
+  }, [selected, page]);
 
   return (
     <>
@@ -52,11 +55,14 @@ export default function CataloguePage() {
           {menuItems.map((item, i) => {
             return (
               <FilterItem
-              key={item+i}
+                key={item + i}
                 title={item.title}
                 icon={item.icon}
                 selected={i == selected}
-                set={() => setSelected(i)}
+                set={() => {
+                  setSelected(i);
+                  setPage(1);
+                }}
               />
             );
           })}
@@ -64,10 +70,10 @@ export default function CataloguePage() {
       </section>
       <section>
         <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 max-w-[1400px] m-auto">
-          {items.length &&
+          {items &&
             items.map((item) => (
               <CatalogueItem
-              key={item.title+1}
+                key={item.title + 1}
                 title={item.title}
                 description={item.description}
                 img={item.image}
@@ -75,7 +81,7 @@ export default function CataloguePage() {
               />
             ))}
         </div>
-        <Pagination count={10} page={1} />
+        <Pagination page={page} setPage={setPage} items={items} limit={2} />
       </section>
       <section className="bg-[#c1b8b2] flex flex-col-reverse lg:flex-row items-center justify-center my-14 p-6">
         {sale && (
@@ -87,7 +93,7 @@ export default function CataloguePage() {
                 alt=""
               />
             </div>
-            <div>
+            <div className="text-center lg:text-left">
               <p className="text-black font-extralight text-4xl text-center lg:text-left">
                 {sale.title}
               </p>
@@ -128,12 +134,7 @@ export default function CataloguePage() {
   );
 }
 
-function FilterItem({
-  selected,
-  icon,
-  title,
-  set,
-}) {
+function FilterItem({ selected, icon, title, set }) {
   return (
     <div
       onClick={set}
@@ -150,14 +151,9 @@ function FilterItem({
   );
 }
 
-function CatalogueItem({
-  title,
-  description,
-  price,
-  img,
-}) {
+function CatalogueItem({ title, description, price, img }) {
   return (
-    <div className="catalogue-shadow flex flex-col items-start w-[350px]">
+    <div className="catalogue-shadow flex flex-col items-start w-[300px] md:w-[350px]">
       <img
         className="w-[350px] h-[300px] object-cover"
         src={`/assets/${img}`}
@@ -170,83 +166,45 @@ function CatalogueItem({
           От {price} руб.
         </p>
       </div>
-      <div className="bg-[#66A018] text-center text-[#fff] p-3 self-stretch">
+      <div className="bg-[#66A018] text-center text-[#fff] p-3 self-stretch mt-auto">
         ОФОРМИТЬ ЗАКАЗ
       </div>
     </div>
   );
 }
 
-function Pagination({ count, page }) {
+function Pagination({ page, setPage, limit, items }) {
+  const isLastPage = items.length < limit;
+  const handlePrev = () => {
+    if (page >= 2) {
+      setPage((prev) => prev - 1);
+    }
+  };
+  const handleNext = () => {
+    if (!isLastPage) {
+      setPage((prev) => prev + 1);
+    }
+  };
   return (
     <div>
       <ul className="m-auto text-center">
-        <span className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66]">
-          {"<"}
-        </span>
-        <a
-          className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66] mx-2"
-          // key={i}
-          // onClick={(e) => handlePageChange(e, p)}
-          // className={`${styles.page} ${active && styles.active}`}
+        <button
+          onClick={page >= 2 ? handlePrev : null}
+          className={`border-[1px] px-3 py-1 w-[300px] lg:mr-10 text-xl border-[#7D8E66] text-[#7D8E66] ${
+            page >= 2 ? "" : "bg-gray-300"
+          }`}
         >
-          {1}
-        </a>
-        <a
-          className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66] mx-2"
-          // key={i}
-          // onClick={(e) => handlePageChange(e, p)}
-          // className={`${styles.page} ${active && styles.active}`}
+          {"Предыдущая страница"}
+        </button>
+        <button
+          onClick={isLastPage ? null : handleNext}
+          className={`border-[1px] px-3 w-[300px] py-1 text-xl border-[#7D8E66] text-[#7D8E66] ${
+            isLastPage ? "bg-gray-300" : ""
+          }`}
         >
-          {2}
-        </a>
-        <a
-          className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66] mx-2"
-          // key={i}
-          // onClick={(e) => handlePageChange(e, p)}
-          // className={`${styles.page} ${active && styles.active}`}
-        >
-          {3}
-        </a>
-        <span className="border-[1px] px-3 py-1 text-xl border-[#7D8E66] text-[#7D8E66]">
-          {">"}
-        </span>
+          {"Следующая страница"}
+        </button>
       </ul>
     </div>
   );
 }
-
-// function Pagination({ count, page }: { count: number, page: number }) {
-//   let pages = Array(Math.floor(count / 18)).fill(1); // кол-во страниц
-
-//   const getRange = () => {
-//       let start = Math.floor((page - 1) / 5) * 5;
-//       return new Array(5).fill(1).map((_, idx) => start + idx + 1).filter(v => v < pages.length + 2)
-//   }
-
-//   console.log(getRange());
-
-//   const history = useHistory()
-//   const handlePageChange = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, page: number) => {
-//       e.preventDefault()
-//       history.push(`/news/${page}`)
-//   }
-
-//   const handlePrev = () => page > 1 && history.push(`/news/${~~page - 1}`)
-//   const handleNext = () => page < pages.length && history.push(`/news/${~~page + 1}`)
-
-//   return (
-//       <div className={styles.pagination}>
-//           <ul className={styles.pages}>
-//               <a onClick={handlePrev} className={`${styles.prev} ${styles.page} ${page == 1 ? styles.disabled : ''}`}>{"<"}</a>
-//               {getRange().map((p: any, i: any) => {
-//                   let active = (p == page)
-//                   return (
-//                       <a key={i} onClick={(e) => handlePageChange(e, p)} className={`${styles.page} ${active && styles.active}`}>{p}</a>
-//                   )
-//               })}
-//               <a onClick={handleNext} className={`${styles.prev} ${styles.page} ${page == pages.length + 1 && styles.disabled}`}>{">"}</a>
-//           </ul>
-//       </div>
-//   )
-// }
