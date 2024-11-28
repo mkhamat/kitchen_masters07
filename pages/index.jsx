@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ReactModal from "react-modal";
 import SimpleSlider from "../components/Carousel";
+import OrderModal from "../components/Modal.jsx";
 import NavBar from "../components/Navbar";
 import directus from "./api/directus";
 
@@ -18,20 +18,28 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await fetch("http://localhost:3000/api/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: {
-        from: "Fred Foo <orders@kitchen-masters07.com>",
-        to: "info@kitchen-masters07.com",
-        subject: "Hello ✔",
-        text: "Hello world?",
-        html: "<b>Hello world?</b>",
-      },
-    });
+  let response = await fetch("directus/mailer", {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "from": "Заявка с сайта <orders@kitchen-masters07.com>",
+      "to": "info@kitchen-masters07.com",
+      "subject": `Заявка: ${feedback.item}`,
+      "template": {
+        "name": "default-template",
+        "data": {
+          "name": `${feedback.name}`,
+          "number": `${feedback.number}`,
+          "email": `${feedback.email}`
+        }
+      }
+    }),
+  });
+    alert('Заявка успешно отправлена!')
+    closeModal();
   };
 
   const closeModal = () => {
@@ -52,14 +60,14 @@ const Home = () => {
     openModal();
   };
 
-  const fetch = async () => {
+  const fetchItems = async () => {
     const res1 = await directus.items("sale1").readByQuery();
     const res2 = await directus.items("sale2").readByQuery();
     setSale([res1.data, res2.data]);
   };
 
   useEffect(() => {
-    fetch();
+    fetchItems();
   }, []);
   return (
     <div>
@@ -174,54 +182,10 @@ const Home = () => {
                   <p className="text-[#7D8E66] font-bold text-4xl py-10">
                     {sale[0].price} ₽
                   </p>
-                  <ReactModal
-                    isOpen={modalSwitch}
-                    onRequestClose={closeModal}
-                    style={{
-                      overlay: {
-                        backgroundColor: "transparent",
-                        inset: 0,
-                      },
-                      content: {
-                        inset: 0,
-                        maxWidth: "min-content",
-                        height: "min-content",
-                        margin: "auto",
-                        border: "none",
-                        boxShadow: "0px 0px 10px gray",
-                      },
-                    }}
-                  >
-                    <div className="font-bold pb-4">{feedback.item}</div>
-                    <div className="text-black">
-                      Укажите Ваш номер телефона и мы Вам перезвоним для
-                      уточнения деталей:
-                    </div>
-                    <input
-                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
-                      type="text"
-                      placeholder="Номер телефона"
-                      onChange={(v) => setFeedback({ ...feedback, number: v })}
-                    />
-                    <input
-                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
-                      type="text"
-                      placeholder="Ваше имя"
-                      onChange={(v) => setFeedback({ ...feedback, name: v })}
-                    />
-                    <input
-                      className="border-[#66A018] border-2 rounded-md p-2 my-2"
-                      type="text"
-                      placeholder="E-mail"
-                      onChange={(v) => setFeedback({ ...feedback, email: v })}
-                    />
-                    <button
-                      onClick={(e) => handleSubmit(e)}
-                      className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10 rounded-md"
-                    >
-                      Отправить
-                    </button>
-                  </ReactModal>
+                  <OrderModal
+                    modalSwitch={modalSwitch} closeModal={closeModal} item={feedback.item}
+                    setFeedback={setFeedback} feedback={feedback} handleSubmit={handleSubmit}
+                  />
                   <button
                     onClick={() => handleOrder(sale[0].title)}
                     className="bg-[#66A018] text-[#fff] font-[500] py-3 px-10"
@@ -246,9 +210,9 @@ const Home = () => {
                 <p className="text-white font-bold text-4xl py-10">
                   {sale[1].price} ₽
                 </p>
-                <a className="bg-white text-[#66A018] font-[500] py-3 px-10">
+                <button onClick={() => handleOrder(sale[1].title)} className="bg-white text-[#66A018] font-[500] py-3 px-10">
                   Заказать
-                </a>
+                </button>
               </div>
               <div className="m-auto">
                 <img
@@ -278,7 +242,7 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <h2 className="text-[#252A2E] font-[700] text-3xl text-center py-8">
+        <h2 className="zz1 text-[#252A2E] font-[700] text-3xl text-center py-8">
           Готовые работы
         </h2>
 
@@ -297,19 +261,21 @@ const Home = () => {
             </li>
           </ul>
         </nav>
-        <p className="text-[#222]  text-sm font-[500] ">+ 7 (988) 936 60 54</p>
+        <p className="text-[#222]  text-sm font-[500] "><a href="tel:+79889366054">+ 7 (988) 936 60 54</a></p>
         <div className="flex my-6">
           <a
             href="https://wa.me/79889366054"
             target={"_blank"}
+	  	rel="noreferrer"
             className="mr-2"
           >
             <object data="/whatsapp.svg" type="image/svg+xml" />
           </a>
-          <a href="https://t.me/Kitchenmasters07" target={"_blank"}>
+          <a href="https://t.me/Kitchenmasters07" target={"_blank"}  rel="noreferrer">
             <object data="/telegram.svg" type="image/svg+xml" />
           </a>
         </div>
+        <div className="gs"><a href="https://goldenstudio.ru/" target={"_blank"}  rel="noreferrer">!-!-!Golden Studio</a> - продвижение сайта</div>
       </footer>
     </div>
   );

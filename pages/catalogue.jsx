@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link.js";
 import { useEffect, useState } from "react";
 import NavBar from "../components/Navbar";
+import OrderModal from "../components/Modal.jsx";
 import directus from "./api/directus";
 
 export default function CataloguePage() {
@@ -16,10 +17,62 @@ export default function CataloguePage() {
   const [sale, setSale] = useState();
   const [page, setPage] = useState(1);
 
+  const [modalSwitch, setModalSwitch] = useState(false);
+  const [feedback, setFeedback] = useState({
+    name: null,
+    email: null,
+    number: null,
+    item: null,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  let response = await fetch("directus/mailer", {
+    method: "POST",
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "from": "Заявка с сайта <orders@kitchen-masters07.com>",
+      "to": "info@kitchen-masters07.com",
+      "subject": `Заявка: ${feedback.item}`,
+      "template": {
+        "name": "default-template",
+        "data": {
+          "name": `${feedback.name}`,
+          "number": `${feedback.number}`,
+          "email": `${feedback.email}`
+        }
+      }
+    }),
+  });
+    alert('Заявка успешно отправлена!')
+    closeModal();
+  };
+
+  const closeModal = () => {
+    setFeedback({
+      name: null,
+      email: null,
+      number: null,
+      item: null,
+    });
+    setModalSwitch(false);
+  };
+  const openModal = () => {
+    setModalSwitch(true);
+  };
+
+  const handleOrder = (itemName) => {
+    setFeedback({ ...feedback, item: itemName });
+    openModal();
+  };
+
   const fetchItems = async (type) => {
     const sale = await directus.items("sale3").readByQuery();
     const res = await directus.items("catalogue").readByQuery({
-      limit: 2,
+      limit: 6,
       page: page,
       filter: {
         _and: [{ type: { _eq: type } }],
@@ -70,6 +123,10 @@ export default function CataloguePage() {
       </section>
       <section>
         <div className="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 max-w-[1400px] m-auto">
+                  <OrderModal
+                    modalSwitch={modalSwitch} closeModal={closeModal} item={feedback.item}
+                    setFeedback={setFeedback} feedback={feedback} handleSubmit={handleSubmit}
+                  />
           {items &&
             items.map((item) => (
               <CatalogueItem
@@ -78,10 +135,11 @@ export default function CataloguePage() {
                 description={item.description}
                 img={item.image}
                 price={item.price}
+                handleOrder={handleOrder}
               />
             ))}
         </div>
-        <Pagination page={page} setPage={setPage} items={items} limit={2} />
+        <Pagination page={page} setPage={setPage} items={items} limit={6} />
       </section>
       <section className="bg-[#c1b8b2] flex flex-col-reverse lg:flex-row items-center justify-center my-14 p-6">
         {sale && (
@@ -100,9 +158,9 @@ export default function CataloguePage() {
               <p className="text-black font-bold text-4xl py-10">
                 {sale.price} ₽
               </p>
-              <a className="bg-[#66A018] text-white font-[500] py-3 px-10">
+              <button onClick={()=>handleOrder(sale.title)} className="bg-[#66A018] text-white font-[500] py-3 px-10">
                 Заказать
-              </a>
+              </button>
             </div>
           </>
         )}
@@ -151,7 +209,7 @@ function FilterItem({ selected, icon, title, set }) {
   );
 }
 
-function CatalogueItem({ title, description, price, img }) {
+function CatalogueItem({ title, description, price, img, handleOrder }) {
   return (
     <div className="catalogue-shadow flex flex-col items-start w-[300px] md:w-[350px]">
       <img
@@ -166,7 +224,7 @@ function CatalogueItem({ title, description, price, img }) {
           От {price} руб.
         </p>
       </div>
-      <div className="bg-[#66A018] text-center text-[#fff] p-3 self-stretch mt-auto">
+      <div onClick={()=>handleOrder(title)} className="bg-[#66A018] text-center text-[#fff] p-3 self-stretch mt-auto">
         ОФОРМИТЬ ЗАКАЗ
       </div>
     </div>
@@ -188,22 +246,19 @@ function Pagination({ page, setPage, limit, items }) {
   return (
     <div>
       <ul className="m-auto text-center">
-        <button
-          onClick={page >= 2 ? handlePrev : null}
-          className={`border-[1px] px-3 py-1 w-[300px] lg:mr-10 text-xl border-[#7D8E66] text-[#7D8E66] ${
-            page >= 2 ? "" : "bg-gray-300"
-          }`}
-        >
+	  { page >= 2 && <button
+          onClick={handlePrev}
+          className={`border-[1px] px-3 py-1 w-[300px] lg:mr-10 text-xl border-[#7D8E66] text-[#7D8E66]`} >
           {"Предыдущая страница"}
         </button>
-        <button
-          onClick={isLastPage ? null : handleNext}
-          className={`border-[1px] px-3 w-[300px] py-1 text-xl border-[#7D8E66] text-[#7D8E66] ${
-            isLastPage ? "bg-gray-300" : ""
-          }`}
+	  }
+	  { !isLastPage && <button
+          onClick={handleNext}
+          className={`border-[1px] px-3 w-[300px] py-1 text-xl border-[#7D8E66] text-[#7D8E66]`}
         >
           {"Следующая страница"}
         </button>
+	  }
       </ul>
     </div>
   );

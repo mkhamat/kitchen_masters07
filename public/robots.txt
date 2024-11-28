@@ -1,0 +1,4 @@
+User-agent: *
+
+Host: https://kitchen-masters07.com
+Sitemap: https://kitchen-masters07.com/sitemap.xml
