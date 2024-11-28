@@ -6,7 +6,7 @@ import YandexMetrika from "../components/YaMetrika";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Script>
+      <Script id="schema">
         {`
           {
       "@context" : "https://schema.org",
