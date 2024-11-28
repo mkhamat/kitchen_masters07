@@ -18,27 +18,27 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  let response = await fetch("directus/mailer", {
-    method: "POST",
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "from": "Заявка с сайта <orders@kitchen-masters07.com>",
-      "to": "info@kitchen-masters07.com",
-      "subject": `Заявка: ${feedback.item}`,
-      "template": {
-        "name": "default-template",
-        "data": {
-          "name": `${feedback.name}`,
-          "number": `${feedback.number}`,
-          "email": `${feedback.email}`
-        }
-      }
-    }),
-  });
-    alert('Заявка успешно отправлена!')
+    let response = await fetch("directus/mailer", {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Заявка с сайта <orders@kitchen-masters07.com>",
+        to: "info@kitchen-masters07.com",
+        subject: `Заявка: ${feedback.item}`,
+        template: {
+          name: "default-template",
+          data: {
+            name: `${feedback.name}`,
+            number: `${feedback.number}`,
+            email: `${feedback.email}`,
+          },
+        },
+      }),
+    });
+    alert("Заявка успешно отправлена!");
     closeModal();
   };
 
@@ -72,11 +72,17 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Kitchen Masters</title>
+        <title>Кухни и мебель в Нальчике, изготовление на заказ в Нальчике и Кабардино-Балкарии | Kitchen Masters 07</title>
+        <meta
+          name="geo.placename"
+          content="Россия, Кабардино-Балкария, Нальчик"
+        ></meta>
+        <meta name="geo.region" content="RU-Кабардино-Балкария"></meta>
         <meta
           name="description"
-          content="Изготовление мебели на заказ в Нальчике и КБР"
+          content="Мебель, кухни на заказ с индивидуальным дизайном в Нальчике и Кабардино-Балкарии, Байсултанова 31"
         />
+        <meta content="мебель, шкафы, детская, изготовление, для офиса, для детской, кухни, кухонные гарнитуры, интернет-магазин, купить, заказать, цены, Нальчик, каталог, Нальчике, КБР," name="keywords"></meta>
         <link rel="icon" href="/logo.png" />
       </Head>
       <header className="lg:flex">
@@ -85,7 +91,7 @@ const Home = () => {
           <div className="py-24">
             <img className="hidden lg:inline" src="/logo-big.png" alt="" />
             <h1 className="font-[700] text-4xl text-[#252A2E] text-center lg:text-[#fff]">
-              Изготовление мебели{" "}
+              Изготовление мебели в Нальчике
             </h1>
             <p className="font-[300] text-xl text-center lg:text-[#fff]">
               По индвидуальному заказу
@@ -100,7 +106,7 @@ const Home = () => {
         <div className="hidden lg:block bg-[url('/header-pic.png')] bg-cover h-screen w-full relative">
           <div className="max-w-[300px] bg-[#EFF0EB] p-4 shadow absolute bottom-[30%] right-[20%]">
             <h3 className="text-[#252A2E] font-[700] text-xl text-center uppercase p-4">
-              Kitchen Masters – небольшая группа профессионалов из Нальчика,
+              Kitchen Masters – небольшая группа профессионалов по производству мебели из Нальчика,
               любящих свою работу
             </h3>
           </div>
@@ -158,7 +164,7 @@ const Home = () => {
             С 2010 года
           </h3>
           <p className="font-[300] text-xl lg:text-3xl text-center">
-            производим кухни по индивидуальному дизайну и пожеланиям заказчиков.
+            производим кухни по индивидуальному дизайну и пожеланиям в КБР и других регионах.
           </p>
           <h3 className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
             Более 1000
@@ -183,8 +189,12 @@ const Home = () => {
                     {sale[0].price} ₽
                   </p>
                   <OrderModal
-                    modalSwitch={modalSwitch} closeModal={closeModal} item={feedback.item}
-                    setFeedback={setFeedback} feedback={feedback} handleSubmit={handleSubmit}
+                    modalSwitch={modalSwitch}
+                    closeModal={closeModal}
+                    item={feedback.item}
+                    setFeedback={setFeedback}
+                    feedback={feedback}
+                    handleSubmit={handleSubmit}
                   />
                   <button
                     onClick={() => handleOrder(sale[0].title)}
@@ -197,7 +207,7 @@ const Home = () => {
                   <img
                     className="w-[500px] h-[400px] object-cover md:p-10"
                     src={`/assets/${sale[0].image}`}
-                    alt=""
+                    alt={sale[0].title}
                   />
                 </div>
               </div>
@@ -210,7 +220,10 @@ const Home = () => {
                 <p className="text-white font-bold text-4xl py-10">
                   {sale[1].price} ₽
                 </p>
-                <button onClick={() => handleOrder(sale[1].title)} className="bg-white text-[#66A018] font-[500] py-3 px-10">
+                <button
+                  onClick={() => handleOrder(sale[1].title)}
+                  className="bg-white text-[#66A018] font-[500] py-3 px-10"
+                >
                   Заказать
                 </button>
               </div>
@@ -218,7 +231,7 @@ const Home = () => {
                 <img
                   className="w-[500px] h-[400px] object-cover md:p-10"
                   src={`/assets/${sale[1].image}`}
-                  alt=""
+                  alt={sale[1].title}
                 />
               </div>
             </div>
@@ -231,6 +244,14 @@ const Home = () => {
           <div className="flex flex-col">
             <p className="text-[#252A2E] font-[700] text-3xl pb-6">Звоните</p>
             <p className="font-[300] text-3xl">+ 7 (988) 936 60 54</p>
+          </div>
+        </div>
+        <div className="flex mb-12">
+          <div className="flex flex-col">
+            <p className="text-[#252A2E] font-[700] text-3xl pb-6">Наш адрес</p>
+            <p className="font-[300] text-3xl">
+              КБР, г.Нальчик, улица Байсултанова 31
+            </p>
           </div>
         </div>
         <div className="flex">
@@ -249,8 +270,8 @@ const Home = () => {
         <SimpleSlider />
       </section>
       <footer className="flex flex-col justify-center items-center">
-        <img src="/logo-big.png" alt="" />
-        <img src="/name-big.png" alt="" />
+        <img src="/logo-big.png" alt="Логотип" />
+        <img src="/name-big.png" alt="Логотип" />
         <nav>
           <ul className="flex my-6">
             <li className="text-[#222] text-sm font-[500] uppercase mr-5">
@@ -261,21 +282,26 @@ const Home = () => {
             </li>
           </ul>
         </nav>
-        <p className="text-[#222]  text-sm font-[500] "><a href="tel:+79889366054">+ 7 (988) 936 60 54</a></p>
+        <p className="text-[#222]  text-sm font-[500] ">
+          <a href="tel:+79889366054">+ 7 (988) 936 60 54</a>
+        </p>
         <div className="flex my-6">
           <a
             href="https://wa.me/79889366054"
             target={"_blank"}
-	  	rel="noreferrer"
+            rel="noreferrer"
             className="mr-2"
           >
             <object data="/whatsapp.svg" type="image/svg+xml" />
           </a>
-          <a href="https://t.me/Kitchenmasters07" target={"_blank"}  rel="noreferrer">
+          <a
+            href="https://t.me/Kitchenmasters07"
+            target={"_blank"}
+            rel="noreferrer"
+          >
             <object data="/telegram.svg" type="image/svg+xml" />
           </a>
         </div>
-        <div className="gs"><a href="https://goldenstudio.ru/" target={"_blank"}  rel="noreferrer">!-!-!Golden Studio</a> - продвижение сайта</div>
       </footer>
     </div>
   );
