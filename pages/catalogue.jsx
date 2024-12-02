@@ -89,10 +89,10 @@ export default function CataloguePage() {
   return (
     <>
       <Head>
-        <title>Каталог | Кухни и мебель в Нальчике, изготовление на заказ в Нальчике и Кабардино-Балкарии | Kitchen Masters 07</title>
+        <title>Каталог | Кухни и мебель Нальчик | Kitchen Masters 07</title>
         <meta
           name="description"
-          content="Выбор готовых вариантов мебели и кухни в Нальчике, заказ по номеру телефона + 7 (988) 936 60 54"
+          content="Выбор готовых вариантов мебели и кухни, либо заказ эксклюзивной мебели по индивидуальному дизайну в Нальчике"
         />
         <link rel="icon" href="/logo.png" />
       </Head>
