@@ -5,18 +5,18 @@ export default function NavBar({ white }) {
     <div className="flex justify-between items-center max-w-[375px] m-auto lg:max-w-[600px] lg:m-0">
       {white ? (
         <div className="flex-col">
-          <object data="/logo.svg" type=""></object>
-          <object data="/logo-name-white.svg" type=""></object>
+          <img src="/logo.svg" type=""/>
+          <img src="/logo-name-white.svg" type=""></img>
         </div>
       ) : (
         <>
           <div className="flex flex-col lg:hidden">
-            <object data="/logo.svg" type=""></object>
-            <object data="/logo-name.svg" type=""></object>
+            <img src="/logo.svg" type=""></img>
+            <img src="/logo-name.svg" type=""></img>
           </div>
           <div className="hidden lg:flex">
-            <object data="/logo-name-white.svg" type=""></object>
-            <object data="/logo.svg" type=""></object>
+            <img src="/logo-name-white.svg" type=""></img>
+            <img src="/logo.svg" type=""></img>
           </div>
         </>
       )}
