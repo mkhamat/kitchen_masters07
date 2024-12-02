@@ -72,7 +72,7 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Мебель и Кухни на заказ в Нальчике | Kitchen Masters 07</title>
+        <title>Мебель и кухонные гарнитуры на заказ в г. Нальчике и КБР | Kitchen Masters 07</title>
 	  <meta name="yandex-verification" content="6eac929467f4f761" />
 	<meta name="google-site-verification" content="0s1awAwhAxdJzEnQgvEP0LC7vgIIr1JbBAHnoL4bj9A" />
         <meta
@@ -82,7 +82,7 @@ const Home = () => {
         <meta name="geo.region" content="RU-Кабардино-Балкария"></meta>
         <meta
           name="description"
-          content="Кухни, мебель на заказ в Нальчике с индивидуальным дизайном, изготовление в Кабардино-Балкарии"
+          content="Кухни и мебель для дома и офиса в Нальчике на заказ с индивидуальным дизайном, изготовление в Кабардино-Балкарии"
         />
         <meta content="мебель, шкафы, детская, изготовление, для офиса, для детской, кухни, кухонные гарнитуры, интернет-магазин, купить, заказать, цены, Нальчик, каталог, Нальчике, КБР," name="keywords"></meta>
         <link rel="icon" href="/logo.png" />
@@ -108,7 +108,7 @@ const Home = () => {
         <div className="hidden lg:block bg-[url('/header-pic.png')] bg-cover h-screen w-full relative">
           <div className="max-w-[300px] bg-[#EFF0EB] p-4 shadow absolute bottom-[30%] right-[20%]">
             <h3 className="text-[#252A2E] font-[700] text-xl text-center uppercase p-4">
-              Kitchen Masters – небольшая группа профессионалов по производству мебели из Нальчика,
+              Kitchen Masters 07 – небольшая группа профессионалов по производству мебели из Нальчика,
               любящих свою работу
             </h3>
           </div>
@@ -121,52 +121,52 @@ const Home = () => {
         <div className="md:grid md:grid-cols-2 lg:grid-cols-3 p-10">
           <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-1.svg" type=""></object>
-            <div className="font-[700] text-xl text-center ml-16">
+            <h3 className="font-[700] text-xl text-center ml-16">
               Шкафы купе
-            </div>
+            </h3>
           </div>
           <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-2.svg" type=""></object>
-            <div className="font-[700] text-xl text-right md:text-center ml-4">
+            <h3 className="font-[700] text-xl text-right md:text-center ml-4">
               Кухонная мебель
-            </div>
+            </h3>
           </div>
           <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-3.svg" type=""></object>
-            <div className="font-[700] text-xl text-right md:text-center ml-4">
+            <h3 className="font-[700] text-xl text-right md:text-center ml-4">
               Шкафы для прихожей
-            </div>
+            </h3>
           </div>
           <div className="flex justify-between py-10 mx-auto items-center ">
             <object data="/work-4.svg" type=""></object>
-            <div className="font-[700] text-xl text-center ml-4">
+            <h3 className="font-[700] text-xl text-center ml-4">
               Мебель для офиса
-            </div>
+            </h3>
           </div>
           <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-5.svg" type=""></object>
-            <div className="font-[700] text-xl text-center ml-4">
+            <h3 className="font-[700] text-xl text-center ml-4">
               Гардеробные
-            </div>
+            </h3>
           </div>
           <div className="flex justify-between py-10 mx-auto items-center">
             <object data="/work-6.svg" type=""></object>
-            <div className="font-[700] text-xl text-center ml-4">
+            <h3 className="font-[700] text-xl text-center ml-4">
               Мебель для детской
-            </div>
+            </h3>
           </div>
         </div>
       </section>
       <section className="bg-[url('/about-section-bg.png')] lg:bg-[url('/about-bg-desk.png')] bg-cover h-screen relative">
-        <h2 className="text-[#252A2E] font-[700] text-3xl lg:text-5xl text-center lg:text-left lg:ml-48 p-8">
+        <div className="text-[#252A2E] font-[700] text-3xl lg:text-5xl text-center lg:text-left lg:ml-48 p-8">
           О нас
-        </h2>
+        </div>
         <div className="max-w-[65%] bg-[#EFF0EB] p-4 shadow lg:max-w-[500px] lg:absolute right-[10%] bottom-[30%]">
-          <h3 className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
+          <p className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
             С 2010 года
-          </h3>
+          </p>
           <p className="font-[300] text-xl lg:text-3xl text-center">
-            производим кухни по индивидуальному дизайну и пожеланиям в КБР и других регионах.
+            производим кухни и мебель по индивидуальным дизайнерским решениям в Нальчике и других регионах.
           </p>
           <h3 className="text-[#252A2E] font-[700] text-3xl lg:text-6xl text-center p-4">
             Более 1000

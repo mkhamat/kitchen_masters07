@@ -89,7 +89,7 @@ export default function CataloguePage() {
   return (
     <>
       <Head>
-        <title>Каталог | Кухни и мебель Нальчик | Kitchen Masters 07</title>
+        <title>Каталог готовой кухни и мебели Нальчик | Kitchen Masters 07</title>
         <meta
           name="description"
           content="Выбор готовых вариантов мебели и кухни, либо заказ эксклюзивной мебели по индивидуальному дизайну в Нальчике"
@@ -211,9 +211,9 @@ function FilterItem({ selected, icon, title, set }) {
          selected && "bg-[#A5B697] border-[#A5B697]"
        } `}
     >
-      <span className={selected ? "text-[#fff]" : "text-[#8E8178]"}>
+      <h2 className={selected ? "text-[#fff]" : "text-[#8E8178]"}>
         {title}
-      </span>
+      </h2>
       <object data={icon} type=""></object>
     </div>
   );
