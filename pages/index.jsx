@@ -73,6 +73,8 @@ const Home = () => {
     <div>
       <Head>
         <title>Мебель и Кухни на заказ в Нальчике | Kitchen Masters 07</title>
+	  <meta name="yandex-verification" content="6eac929467f4f761" />
+	<meta name="google-site-verification" content="0s1awAwhAxdJzEnQgvEP0LC7vgIIr1JbBAHnoL4bj9A" />
         <meta
           name="geo.placename"
           content="Россия, Кабардино-Балкария, Нальчик"
